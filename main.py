@@ -106,11 +106,11 @@ def toggle_script():
     if script_enabled:
         print("Script enabled.")
         on_sound.play()
-        dpg.set_value("checkbox_onoff", True)  # Set checkbox to checked when script is enabled
+        dpg.set_value("checkbox_onoff", True)
     else:
         off_sound.play()
         print("Script paused.")
-        dpg.set_value("checkbox_onoff", False)  # Set checkbox to unchecked when script is disabled
+        dpg.set_value("checkbox_onoff", False)
 
 def listen_hotkey_toggle_script():
     keyboard.add_hotkey('f2', toggle_script)
@@ -168,7 +168,7 @@ with dpg.theme() as global_theme:
         dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 5, category=dpg.mvThemeCat_Core)
 dpg.bind_theme(global_theme)
 load_config()
-listen_hotkey_toggle_script()  # Listen for the F2 key to toggle the script
+listen_hotkey_toggle_script()
 
 dpg.create_viewport(title="linux keybinder v2.4", width=570, height=400)
 dpg.setup_dearpygui()
