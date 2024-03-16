@@ -5,7 +5,6 @@ import os
 import configparser
 import pyperclip
 import pygame
-import webbrowser
 
 pygame.mixer.init()
 config_folder = os.path.expanduser("~/Documents/linux keybinder")
@@ -90,6 +89,15 @@ def hotkey_pressed(key):
             perform_action(command)
             break
 
+def _help(message):
+    last_item = dpg.last_item()
+    group = dpg.add_group(horizontal=True)
+    dpg.move_item(last_item, parent=group)
+    dpg.capture_next_item(lambda s: dpg.move_item(s, parent=group))
+    t = dpg.add_text("(?)", color=[36, 173, 149])
+    with dpg.tooltip(t):
+        dpg.add_text(message)
+
 script_enabled = False
 
 def toggle_script():
@@ -98,22 +106,16 @@ def toggle_script():
     if script_enabled:
         print("Script enabled.")
         on_sound.play()
-        for i in range(1, 11):
-            hotkey = str(dpg.get_value(f"line{i}_key"))
-            if hotkey:  # Check if hotkey is not empty before registering
-                keyboard.add_hotkey(hotkey, hotkey_pressed, args=(hotkey,))
+        dpg.set_value("checkbox_onoff", True)
     else:
         off_sound.play()
         print("Script paused.")
-        keyboard.unhook_all_hotkeys()
+        dpg.set_value("checkbox_onoff", False)
+
+def listen_hotkey_toggle_script():
+    keyboard.add_hotkey('f2', toggle_script)
 
 allowed_keys = ['Z', 'X', 'C', 'B', 'N', 'L', 'K', 'J', 'H', 'P', 'O', 'I', 'U', 'Y', 'Q']
-selected_keys = set()
-
-def validate_key_change(app_data):
-    key = app_data
-    if key in selected_keys:
-        print("Error: Cannot choose the same key for multiple bindings.")
 
 dpg.create_context()
 
@@ -130,9 +132,8 @@ with dpg.window(tag="linux keybinder v2.4", no_resize=True):
                 dpg.add_menu_item(label="off", callback=play_off_sound)
             with dpg.menu(label="credits"):
                 dpg.add_menu_item(label="discord -> linux1337")
-                dpg.add_menu_item(label="instagram -> theqdqr", callback=lambda: webbrowser.open("https://www.instagram.com/theqdqr/"))
-                dpg.add_menu_item(label="github -> linucswin", callback=lambda: webbrowser.open("https://github.com/linucswin/"))
-            dpg.add_menu_item(label="support server", callback=lambda: webbrowser.open("https://discord.gg/3JdQUDbuqx"))
+                dpg.add_menu_item(label="instagram -> theqdqr")
+                dpg.add_menu_item(label="github -> linucswin")
     dpg.add_spacer(height=5)
     with dpg.group(horizontal=True):
         dpg.add_spacer(width=220)
@@ -143,9 +144,8 @@ with dpg.window(tag="linux keybinder v2.4", no_resize=True):
     for i in range(1, 11):  
         with dpg.group(tag=f"line{i}", horizontal=True):
             combo_tag = f"line{i}_key"
-            dpg.add_combo(allowed_keys, label="", default_value="", width=50, tag=combo_tag, callback=validate_key_change)
+            dpg.add_combo(allowed_keys(), label="", default_value="", width=50, tag=combo_tag)
             dpg.add_input_text(label="", hint="fara '/'", default_value="", width=475, tag=f"line{i}_command")
-            
             
     dpg.add_spacer(height=10)
 
@@ -168,6 +168,7 @@ with dpg.theme() as global_theme:
         dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 5, category=dpg.mvThemeCat_Core)
 dpg.bind_theme(global_theme)
 load_config()
+listen_hotkey_toggle_script()
 
 dpg.create_viewport(title="linux keybinder v2.4", width=570, height=400)
 dpg.setup_dearpygui()
@@ -175,4 +176,4 @@ dpg.show_viewport()
 dpg.set_primary_window("linux keybinder v2.4", True)
 dpg.start_dearpygui()
 dpg.destroy_context()
-#up to date
+#asa-i ma
