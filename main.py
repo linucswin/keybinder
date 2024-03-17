@@ -144,7 +144,7 @@ with dpg.window(tag="linux keybinder v2.4", no_resize=True):
     for i in range(1, 11):  
         with dpg.group(tag=f"line{i}", horizontal=True):
             combo_tag = f"line{i}_key"
-            dpg.add_combo(allowed_keys(), label="", default_value="", width=50, tag=combo_tag)
+            dpg.add_combo(allowed_keys, label="", default_value="", width=50, tag=combo_tag)
             dpg.add_input_text(label="", hint="fara '/'", default_value="", width=475, tag=f"line{i}_command")
             
     dpg.add_spacer(height=10)
