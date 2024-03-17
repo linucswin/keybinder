@@ -5,6 +5,7 @@ import os
 import configparser
 import pyperclip
 import pygame
+import webbrowser
 
 pygame.mixer.init()
 
@@ -137,6 +138,9 @@ with dpg.window(tag="linux keybinder v2.5", no_resize=True):
                 dpg.add_menu_item(label="discord -> linux1337")
                 dpg.add_menu_item(label="instagram -> theqdqr")
                 dpg.add_menu_item(label="github -> linucswin")
+            with dpg.menu(label="support"):
+                dpg.add_menu_item(label="discord server", callback=lambda: webbrowser.open('https://discord.gg/3JdQUDbuqx'))
+                dpg.add_menu_item(label="github page", callback=lambda: webbrowser.open('https://github.com/linucswin/keybinder'))
     dpg.add_spacer(height=5)
     with dpg.group(horizontal=True):
         dpg.add_spacer(width=220)
