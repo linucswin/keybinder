@@ -179,3 +179,4 @@ dpg.show_viewport()
 dpg.set_primary_window("linux keybinder v2.5", True)
 dpg.start_dearpygui()
 dpg.destroy_context()
+# updated v2.5
