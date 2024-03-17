@@ -9,10 +9,11 @@ import webbrowser
 
 pygame.mixer.init()
 
-on_sound = pygame.mixer.Sound(os.path.join('sounds/on.mp3'))
-off_sound = pygame.mixer.Sound(os.path.join('sounds/off.mp3'))
-error_sound = pygame.mixer.Sound(os.path.join('sounds/error.mp3'))
-success_sound = pygame.mixer.Sound(os.path.join('sounds/success.mp3'))
+    
+on_sound = pygame.mixer.Sound(os.path.join('assets/on.mp3'))
+off_sound = pygame.mixer.Sound(os.path.join('assets/off.mp3'))
+error_sound = pygame.mixer.Sound(os.path.join('assets/error.mp3'))
+success_sound = pygame.mixer.Sound(os.path.join('assets/success.mp3'))
 
 def play_success_sound():
     success_sound.play()
@@ -121,6 +122,11 @@ def listen_hotkey_toggle_script():
 allowed_keys = ['Z', 'X', 'C', 'B', 'N', 'L', 'K', 'J', 'H', 'P', 'O', 'I', 'U', 'Y', 'Q']
 
 dpg.create_context()
+
+with dpg.font_registry():
+    # first argument ids the path to the .ttf or .otf file
+    custom_font = dpg.add_font("assets/font.ttf", 15)
+dpg.bind_font(custom_font)
 with dpg.window(tag="linux keybinder v2.5", no_resize=True):
 
     with dpg.menu_bar():
@@ -166,7 +172,7 @@ with dpg.theme() as global_theme:
         dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, (36, 173, 149), category=dpg.mvThemeCat_Core)
         dpg.add_theme_color(dpg.mvThemeCol_CheckMark, (36, 145, 125), category=dpg.mvThemeCat_Core)
         dpg.add_theme_color(dpg.mvThemeCol_Text, (36, 145, 125), category=dpg.mvThemeCat_Core)
-        dpg.add_theme_color(dpg.mvThemeCol_TextSelectedBg, (255, 0, 30), category=dpg.mvThemeCat_Core)
+        dpg.add_theme_color(dpg.mvThemeCol_TextSelectedBg, (101, 105, 103), category=dpg.mvThemeCat_Core)
         dpg.add_theme_color(dpg.mvThemeCol_FrameBgHovered, (23, 97, 84), category=dpg.mvThemeCat_Core)
         dpg.add_theme_color(dpg.mvThemeCol_FrameBgActive, (36, 173, 149), category=dpg.mvThemeCat_Core)
         dpg.add_theme_color(dpg.mvThemeCol_ScrollbarGrabActive, (36, 173, 149), category=dpg.mvThemeCat_Core)
@@ -174,10 +180,12 @@ with dpg.theme() as global_theme:
         dpg.add_theme_color(dpg.mvThemeCol_HeaderActive, (36, 173, 149), category=dpg.mvThemeCat_Core)
         dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 5, category=dpg.mvThemeCat_Core)
 dpg.bind_theme(global_theme)
+
 load_config()
 listen_hotkey_toggle_script()
 listen_hotkeys() 
-dpg.create_viewport(title="linux keybinder v2.5", width=570, height=400)
+
+dpg.create_viewport(title="linux keybinder v2.5", width=575, height=420)
 dpg.setup_dearpygui()
 dpg.show_viewport()
 dpg.set_primary_window("linux keybinder v2.5", True)
