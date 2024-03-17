@@ -9,7 +9,6 @@ import webbrowser
 
 pygame.mixer.init()
 
-    
 on_sound = pygame.mixer.Sound(os.path.join('assets/on.mp3'))
 off_sound = pygame.mixer.Sound(os.path.join('assets/off.mp3'))
 error_sound = pygame.mixer.Sound(os.path.join('assets/error.mp3'))
@@ -122,9 +121,11 @@ def listen_hotkey_toggle_script():
 allowed_keys = ['Z', 'X', 'C', 'B', 'N', 'L', 'K', 'J', 'H', 'P', 'O', 'I', 'U', 'Y', 'Q']
 
 dpg.create_context()
+dpg.create_viewport(title="linux keybinder v2.5", width=575, height=420, small_icon='assets/icon.ico', large_icon='assets/icon.ico')
+dpg.setup_dearpygui()
+dpg.show_viewport()
 
 with dpg.font_registry():
-    # first argument ids the path to the .ttf or .otf file
     custom_font = dpg.add_font("assets/font.ttf", 15)
 dpg.bind_font(custom_font)
 with dpg.window(tag="linux keybinder v2.5", no_resize=True):
@@ -185,10 +186,7 @@ load_config()
 listen_hotkey_toggle_script()
 listen_hotkeys() 
 
-dpg.create_viewport(title="linux keybinder v2.5", width=575, height=420)
-dpg.setup_dearpygui()
-dpg.show_viewport()
 dpg.set_primary_window("linux keybinder v2.5", True)
 dpg.start_dearpygui()
 dpg.destroy_context()
-# updated v2.5
+# updated v2.6
