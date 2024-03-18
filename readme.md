@@ -1,4 +1,4 @@
-A working example ready for public use.
+A working example ![colorama](https://img.shields.io/badge/v-2.6-34ebb1) ready for public use.
 Quick tutorial:
 1. Write your command.
 2. Select the hotkey.
